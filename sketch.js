@@ -1,24 +1,12 @@
 const quadrado = 100;
-let player_lpos = 45;
 let coluna = 45;
+let tiro_lpos;
 let tiro = 0;
+let player_lpos = 45;
 let start, current;
 
 function setup() {
   createCanvas(600, 300);
-}
-
-function draw_matriz() {
-  fill(155);
-  for(let l = 0; l < 6; l++) {
-    for(let c = 0; c < 3; c++) {
-      square(l * 100, c * 100, quadrado);
-    }
-  }
-}
-
-function draw_player() {
-  square(45, player_lpos, 10);
 }
 
 function draw() {
@@ -31,6 +19,7 @@ function draw() {
   if(coluna > 600) {
     tiro = 0;
     coluna = 45;
+    tiro_lpos = 0;
   }
 
   background(220);
@@ -47,9 +36,27 @@ function atira() {
   }
 }
 
+function draw_matriz() {
+  fill(155);
+  for(let l = 0; l < 6; l++) {
+    for(let c = 0; c < 3; c++) {
+      square(l * 100, c * 100, quadrado);
+    }
+  }
+}
+
+function draw_player() {
+  square(45, player_lpos, 10);
+}
+
 function draw_tiro() {
-  fill(255, 204, 0)
-  square(coluna, player_lpos, 5);
+  fill(255, 204, 0);
+  if(tiro == 1) {
+    square(coluna, tiro_lpos, 5);
+  } else {
+    square(coluna, player_lpos, 5);
+  }
+  
 }
 
 function keyPressed() {
@@ -61,6 +68,7 @@ function keyPressed() {
   }
   if(keyCode === LEFT_ARROW) {
     tiro = 1;
+    tiro_lpos = player_lpos;
   }
 }
 
