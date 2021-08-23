@@ -12,6 +12,8 @@ let p2_tiro_lpos;
 let p2_lpos = 45;
 let p2_vida = 5;
 
+let atira_auxiliar = 1;
+
 let start, current;
 
 function setup() {
@@ -97,13 +99,18 @@ function draw() {
 
 function atirar() {
   if(p1_atira == 1) {
-    wait(500);
-    p1_coluna += 100;
+    if(millis() > 500 * atira_auxiliar) {
+      p1_coluna += 100;
+      atira_auxiliar++;
+    }
   }
+
   
   if(p2_atira == 1) {
-    wait(500);
-    p2_coluna -= 100;
+    if(millis() > 500 * atira_auxiliar) {
+      p2_coluna -= 100;
+      atira_auxiliar++;
+    }
   }
 }
 
@@ -119,6 +126,7 @@ function draw_matriz() {
 function draw_p1() {
   fill(000)
   square(45, p1_lpos, 10);
+
 }
 
 function draw_p2() {
