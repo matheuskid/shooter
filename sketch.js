@@ -4,24 +4,50 @@ let p1_atira = 0;
 let p1_coluna = 45;
 let p1_tiro_lpos;
 let p1_lpos = 45;
+let p1_vida = 5;
 //player 2 variables
 let p2_atira = 0;
 let p2_coluna = 545;
 let p2_tiro_lpos;
 let p2_lpos = 45;
+let p2_vida = 5;
 
 let start, current;
 
 function setup() {
   createCanvas(600, 300);
 }
-/*
-function checa_tiro() {
-  if(p2_coluna === p1_coluna && p2_tiro_lpos == p1_lpos) {
 
+function draw_p1_vida() {
+  fill(255, 0, 0);
+  if(p1_vida == 0) {
+    fill(000)
+    //square(0, 0, 10)
+  }
+  for(let i = 0; i < p1_vida; i++) {
+    square(i * 5, 0, 5) 
   }
 }
-*/
+
+function draw_p2_vida() {
+  fill(255, 0, 0);
+  if(p2_vida == 0) {
+    fill(000)
+    //square(0, 600, 10)
+  }
+  for(let i = 0; i < p2_vida; i++) {
+    square(575 + (i * 5), 0, 5) 
+  }
+}
+
+function checa_acertou() {
+  if(p2_coluna == p1_coluna && p2_tiro_lpos == p1_lpos) {
+    p1_vida -= 1;
+  }
+  if(p1_coluna == p2_coluna && p1_tiro_lpos == p2_lpos) {
+    p2_vida -= 1;
+  }
+}
 
 function checa_posicao() {
   if(p1_lpos < 0) {
@@ -59,6 +85,9 @@ function draw() {
 
   background(220);
   draw_matriz();
+  checa_acertou();
+  draw_p1_vida();
+  draw_p2_vida();
   draw_p1();
   draw_p2();
 
@@ -88,10 +117,12 @@ function draw_matriz() {
 }
 
 function draw_p1() {
+  fill(000)
   square(45, p1_lpos, 10);
 }
 
 function draw_p2() {
+  fill(000)
   square(545, p2_lpos, 10);
 }
 
