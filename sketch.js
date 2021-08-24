@@ -68,7 +68,7 @@ function checa_posicao() {
 }
 
 function checa_tiro() {
-  if(p1_coluna > 600) {
+  if(p1_coluna > 545) {
     p1_atira = 0;
     p1_coluna = 45;
     p1_tiro_lpos = 0;
@@ -83,11 +83,11 @@ function checa_tiro() {
 
 function draw() {
   checa_posicao();
+  checa_acertou();
   checa_tiro();
 
   background(220);
   draw_matriz();
-  checa_acertou();
   draw_p1_vida();
   draw_p2_vida();
   draw_p1();
