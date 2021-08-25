@@ -1,24 +1,22 @@
 const quadrado = 100;
+
+//player 1 variables
+let player1 = {municao: 3,
+                coluna: 545,
+                linha: 45,
+                bala: [{aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
+                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
+                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false}],
+                vida: 5};
+                
 //player 2 variables
-let p1_atira = 0;
-let p1_coluna = 45;
-let p1_tiro_lpos;
-let p1_lpos = 45;
-let p1_vida = 5;
-//player 2 variables
-let p2_atira = 0;
-let p2_coluna = 545;
-let p2_tiro_lpos;
-let p2_lpos = 45;
-let p2_vida = 5;
-
-let momento_tiro_p1;
-let momento_tiro_p2;
-
-let atira_auxiliar_p1 = 1;
-let atira_auxiliar_p2 = 1;
-
-let start, current;
+let player2 = {municao: 3,
+                coluna: 545,
+                linha: 45,
+                bala: [{aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
+                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
+                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false}],
+                vida: 5};
 
 function setup() {
   createCanvas(600, 300);
@@ -26,15 +24,17 @@ function setup() {
 
 function atirar() {
   if(p1_atira == 1) {
+    text((atira_auxiliar_p1), 200, 10)
     if((millis() - momento_tiro_p1).toFixed(0) > 500 * atira_auxiliar_p1) {
-      p1_coluna += 100;
+      p1_tiro_col += 100;
       atira_auxiliar_p1++;
     }
   }
 
   if(p2_atira == 1) {
+    text((atira_auxiliar_p2), 10, 10)
     if((millis() - momento_tiro_p2).toFixed(0) > 500 * atira_auxiliar_p2) {
-      p2_coluna -= 100;
+      p2_tiro_col -= 100;
       atira_auxiliar_p2++;
     }
   }
@@ -42,62 +42,55 @@ function atirar() {
 
 
 function checa_acertou() {
-  if(p1_coluna == p2_coluna && p1_tiro_lpos == p2_lpos) {
-    p2_vida -= 1;
-    p1_atira = 0;
-    p1_coluna = 45;
-    p1_tiro_lpos = -1;
-  }
-
-  if(p2_coluna == p1_coluna && p2_tiro_lpos == p1_lpos) {
-    p1_vida -= 1;
-    p2_atira = 0;
-    p2_coluna = 545;
-    p2_tiro_lpos = -2;
+  for(let i = 0; i < 3; i++) {
+    if(player1.bala[i].coluna == player2.coluna && player1.bala[i].coluna == player2.coluna) {
+      player2.vida -= 1;
+      player1.bala[i].coluna = 45;
+      player1.bala[i].linha = player1.linha;
+    }
+  
+    if(player2.bala[i].coluna == player2.coluna && player1.bala[i].coluna == player2.coluna) {
+      player1.vida -= 1;
+      player2.bala[i].coluna = 45;
+      player2.bala[i].linha = player2.linha;
+    }
   }
 }
 
 function checa_posicao() {
-  if(p1_lpos < 0) {
-    p1_lpos = 245;
+  if(player1.linha < 0) {
+    player1.linha = 245;
   }
-  if(p2_lpos < 0) {
-    p2_lpos = 245;
+  if(player2.linha < 0) {
+    player2.linha = 245;
   }
 
-  if(p1_lpos > 300) {
-    p1_lpos = 45;
+  if(player1.linha > 300) {
+    player1.linha = 45;
   }
-  if(p2_lpos > 300) {
-    p2_lpos = 45;
+  if(player2.linha > 300) {
+    player2.linha = 45;
   }
 }
 
-function checa_tiro() {
-  if(p1_coluna > 545) {
-    p1_atira = 0;
-    p1_coluna = 45;
-    p1_tiro_lpos = 0;
-  }
-
-  if(p2_coluna < 45) {
-    p2_atira = 0;
-    p2_coluna = 545;
-    p2_tiro_lpos = 0;
+function checa_bala() {
+  for(let i = 0; i < 3; i++) {
+    if(player1.bala[i].coluna > 545) {
+      player1.bala[i].coluna = 45;
+      player1.bala[i].linha = player1.linha;
+    }
+  
+    if(player2.bala[i].coluna < 45) {
+      player2.bala[i].coluna = 545;
+      player2.bala[i].linha = player2.linha;
+    }
   }
 }
 
 function draw() {
-  if(atira_auxiliar_p1 > 5) {
-    atira_auxiliar_p1 = 1;
-  }
-  if(atira_auxiliar_p2 > 5) {
-    atira_auxiliar_p2 = 1;
-  }
   checa_acertou();
+  checa_bala();
   checa_posicao();
-  checa_acertou();
-  checa_tiro();
 
   background(220);
   draw_matriz();
@@ -106,7 +99,7 @@ function draw() {
   draw_p1();
   draw_p2();
 
-  draw_tiro();
+  draw_balas();
   atirar();
 }
 
@@ -121,85 +114,83 @@ function draw_matriz() {
 
 function draw_p1() {
   fill(000)
-  square(45, p1_lpos, 10);
+  square(45, player1.linha, 10);
 }
 
 function draw_p1_vida() {
   fill(255, 0, 0);
-  if(p1_vida == 0) {
+  if(player1.vida == 0) {
     fill(000)
     //square(0, 0, 10)
   }
-  for(let i = 0; i < p1_vida; i++) {
+  for(let i = 0; i < player1.vida; i++) {
     square(i * 5, 0, 5) 
   }
 }
 
 function draw_p2() {
   fill(000)
-  square(545, p2_lpos, 10);
+  square(545, player2.linha, 10);
 }
 
 function draw_p2_vida() {
   fill(255, 0, 0);
-  if(p2_vida == 0) {
+  if(player2.vida == 0) {
     fill(000)
     //square(0, 600, 10)
   }
-  for(let i = 0; i < p2_vida; i++) {
-    square(575 + (i * 5), 0, 5) 
+  for(let i = 0; i < player2.vida; i++) {
+    square(600 - (i * 5), 0, 5) 
   }
 }
 
-function draw_tiro() {
+function draw_balas() {
   fill(255, 204, 0);
-  if(p1_atira == 1) {
-    square(p1_coluna, p1_tiro_lpos, 5);
-  } else {
-    square(p1_coluna, p1_lpos, 5);
+  for(let i = 0; i < 3; i++) {
+    if(player1.bala[i].disparada == true) {
+      square(player1.bala[i].coluna, player1.bala[i].linha, 5);
+    } else {
+      square(i * 5, 5, 5);
+    }
   }
 
-  if(p2_atira == 1) {
-    square(p2_coluna, p2_tiro_lpos, 5);
-  } else {
-    square(p2_coluna, p2_lpos, 5);
+  for(let i = 0; i < 3; i++) {
+    if(player2.bala[i].disparada == true) {
+      square(player2.bala[i].coluna, player2.bala[i].linha, 5);
+    } else {
+      square(600 - (i * 5), 5, 5);
+    }
   }
 }
 
 function keyPressed() {
   // player 1 comands
   if(keyCode === 87) {
-    p1_lpos -= 100;
+    player1.linha -= 100;
   }
   if(keyCode === 83) {
-    p1_lpos += 100;
+    player1.linha += 100;
   }
   if(keyCode === 68) {
-    momento_tiro_p1 = millis();
-    p1_atira = 1;
-    p1_tiro_lpos = p1_lpos;
+    if(player1.municao > 1) {
+      player1.bala[player1.municao].disparada = true;
+      player1.bala[player1.municao].momento = millis();
+      player1.municao -= 1;
+    }
   }
 
   // player 2 comands
   if(keyCode === UP_ARROW) {
-    p2_lpos -= 100;
+    player2.linha -= 100;
   }
   if(keyCode === DOWN_ARROW) {
-    p2_lpos += 100;
+    player2.linha += 100;
   }
   if(keyCode === LEFT_ARROW) {
-    momento_tiro_p2 = millis();
-    p2_atira = 1;
-    p2_tiro_lpos = p2_lpos;
+    if(player2.municao > 1) {
+      player2.bala[player2.municao].disparada = true;
+      player2.bala[player2.municao].momento = millis();
+      player2.municao -= 1;
+    }
   }
-}
-
-function wait(time)
-{
-  start = millis()
-  do
-  {
-    current = millis();
-  }
-  while(current < start + time)
 }
