@@ -1,22 +1,24 @@
 const quadrado = 100;
 
 //player 1 variables
-let player1 = {municao: 3,
-                coluna: 545,
-                linha: 45,
-                bala: [{aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
-                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
-                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false}],
-                vida: 5};
+let player1 = {
+  municao: 3,
+  coluna: 45,
+  linha: 45,
+  bala: [{aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
+          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
+          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false}],
+  vida: 5};
                 
 //player 2 variables
-let player2 = {municao: 3,
-                coluna: 545,
-                linha: 45,
-                bala: [{aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
-                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false},
-                        {aux: 1, coluna: 545, linha: 45, momento: 0, disparada: false}],
-                vida: 5};
+let player2 = {
+  municao: 3,
+  coluna: 545,
+  linha: 45,
+  bala: [{aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
+          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
+          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false}],
+  vida: 5};
 
 function setup() {
   createCanvas(600, 300);
@@ -41,18 +43,26 @@ function atirar() {
 }
 
 
-function checa_acertou() {
+function checa_acertou_p2() {
   for(let i = 0; i < 3; i++) {
-    if(player1.bala[i].coluna == player2.coluna && player1.bala[i].coluna == player2.coluna) {
-      player2.vida -= 1;
-      player1.bala[i].coluna = 45;
-      player1.bala[i].linha = player1.linha;
+    if(player1.bala[i].disparada == true) {
+      if(player1.bala[i].coluna == player2.coluna && player1.bala[i].linha == player2.linha) {
+        player2.vida -= 1;
+        player1.bala[i].coluna = 0;
+        player1.bala[i].linha = 0;
+      }
     }
-  
-    if(player2.bala[i].coluna == player2.coluna && player1.bala[i].coluna == player2.coluna) {
-      player1.vida -= 1;
-      player2.bala[i].coluna = 45;
-      player2.bala[i].linha = player2.linha;
+  }
+}
+
+function checa_acertou_p1() {
+  for(let i = 0; i < 3; i++) {
+    if(player2.bala[i].disparada == true) {
+      if(player2.bala[i].coluna == player1.coluna && player2.bala[i].linha == player1.linha) {
+        player1.vida -= 1;
+        player2.bala[i].coluna = 0;
+        player2.bala[i].linha = 0;
+      }
     }
   }
 }
@@ -88,7 +98,8 @@ function checa_bala() {
 }
 
 function draw() {
-  checa_acertou();
+  checa_acertou_p1();
+  checa_acertou_p2();
   checa_bala();
   checa_posicao();
 
@@ -100,7 +111,7 @@ function draw() {
   draw_p2();
 
   draw_balas();
-  atirar();
+  //atirar();
 }
 
 function draw_matriz() {
@@ -114,7 +125,7 @@ function draw_matriz() {
 
 function draw_p1() {
   fill(000)
-  square(45, player1.linha, 10);
+  square(player1.coluna, player1.linha, 10);
 }
 
 function draw_p1_vida() {
@@ -130,7 +141,7 @@ function draw_p1_vida() {
 
 function draw_p2() {
   fill(000)
-  square(545, player2.linha, 10);
+  square(player2.coluna, player2.linha, 10);
 }
 
 function draw_p2_vida() {
@@ -140,7 +151,7 @@ function draw_p2_vida() {
     //square(0, 600, 10)
   }
   for(let i = 0; i < player2.vida; i++) {
-    square(600 - (i * 5), 0, 5) 
+    square(595 - (i * 5), 0, 5) 
   }
 }
 
@@ -158,7 +169,7 @@ function draw_balas() {
     if(player2.bala[i].disparada == true) {
       square(player2.bala[i].coluna, player2.bala[i].linha, 5);
     } else {
-      square(600 - (i * 5), 5, 5);
+      square(595 - (i * 5), 5, 5);
     }
   }
 }
@@ -174,6 +185,8 @@ function keyPressed() {
   if(keyCode === 68) {
     if(player1.municao > 1) {
       player1.bala[player1.municao].disparada = true;
+      player1.bala[player1.municao].coluna = player1.coluna;
+      player1.bala[player1.municao].linha = player1.linha;
       player1.bala[player1.municao].momento = millis();
       player1.municao -= 1;
     }
@@ -189,6 +202,8 @@ function keyPressed() {
   if(keyCode === LEFT_ARROW) {
     if(player2.municao > 1) {
       player2.bala[player2.municao].disparada = true;
+      player2.bala[player2.municao].coluna = player2.coluna;
+      player2.bala[player2.municao].linha = player2.linha;
       player2.bala[player2.municao].momento = millis();
       player2.municao -= 1;
     }
