@@ -139,8 +139,28 @@ function draw() {
   draw_p1();
   draw_p2();
 
+  reload();
   draw_balas();
   atirar();
+}
+
+function draw_balas() {
+  fill(255, 204, 0);
+  for(let i = 0; i < player1.municao; i++) {
+    if(player1.bala[i].disparada == true) {
+      square(player1.bala[i].coluna, player1.bala[i].linha, 5);
+    } else {
+      square(i * 5, 5, 5);
+    }
+  }
+
+  for(let i = 0; i <= player2.municao - 1; i++) {
+    if(player2.bala[i].disparada == true) {
+      square(player2.bala[i].coluna, player2.bala[i].linha, 5);
+    } else {
+      square(595 - (i * 5), 5, 5);
+    }
+  }
 }
 
 function draw_matriz() {
@@ -181,25 +201,6 @@ function draw_p2_vida() {
   }
   for(let i = 0; i < player2.vida; i++) {
     square(595 - (i * 5), 0, 5) 
-  }
-}
-
-function draw_balas() {
-  fill(255, 204, 0);
-  for(let i = 0; i < 3; i++) {
-    if(player1.bala[i].disparada == true) {
-      square(player1.bala[i].coluna, player1.bala[i].linha, 5);
-    } else {
-      square(i * 5, 5, 5);
-    }
-  }
-
-  for(let i = 0; i < 3; i++) {
-    if(player2.bala[i].disparada == true) {
-      square(player2.bala[i].coluna, player2.bala[i].linha, 5);
-    } else {
-      square(595 - (i * 5), 5, 5);
-    }
   }
 }
 
