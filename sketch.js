@@ -154,7 +154,7 @@ function draw_balas() {
     }
   }
 
-  for(let i = 0; i <= player2.municao - 1; i++) {
+  for(let i = 0; i < player2.municao; i++) {
     if(player2.bala[i].disparada == true) {
       square(player2.bala[i].coluna, player2.bala[i].linha, 5);
     } else {
