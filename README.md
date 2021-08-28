@@ -6,13 +6,9 @@
 
 -> Instalar node.js
 
--> Baixar http-server:
---- Abra o cmd, digite "npm install -g browser-sync", então aperte enter e espere terminar
-
--> Abrir o servidor na pasta do projeto
---- Navegue pelo cmd até a pasta "shooter" e rode o seguinte comando: "http-server"
-
-=== Na URL do seu navegador coloque: "http://localhost:8080/"
+-> Baixar a extensão Live Server
+--- Baixe a extensão live server pelo vs code e então clice en "go live" no canto inferior direito da IDE <br>
+  o projeto já deve abrir no navegado
 
 ## Como jogar
 === Comandos do player vermelho <br>
