@@ -180,7 +180,7 @@ function draw_p2_vida() {
     //square(0, 600, 10)
   }
   for(let i = 0; i < player2.vida; i++) {
-    square(595 - (i * 5), 0, 5) 
+    square(img, 595 - (i * 5), 0, 10, 10) 
   }
 }
 
