@@ -1,7 +1,9 @@
 ### shooter
 <----- word in progress ----->
-## Passo a passo
+## Instalar
 <p> 
+-> Baixe os arquivos (por git, zipado, etc)
+
 -> Instalar node.js
 
 -> Baixar http-server:
@@ -12,6 +14,19 @@
 
 === Na URL do seu navegador coloque: "http://localhost:8080/"
 
+## Como jogar
+=== Comandos do player vermelho
+  W -> Pra cima
+  S -> Pra baixo
+  D -> Atira
+  R -> Recarregar
+
+=== Comandos do player azul
+  Seta pra cima -> Pra cima
+  Seta pra baixo -> Pra baixo
+  Seta pra esquerda -> Atira
+  Seta pra direita -> Recarrega
+  
 </p>
 
 
