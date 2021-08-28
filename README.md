@@ -15,17 +15,17 @@
 === Na URL do seu navegador coloque: "http://localhost:8080/"
 
 ## Como jogar
-=== Comandos do player vermelho \n
-  W -> Pra cima \n
-  S -> Pra baixo \n
-  D -> Atira \n
-  R -> Recarregar \n
+=== Comandos do player vermelho <br>
+  W -> Pra cima <br>
+  S -> Pra baixo <br>
+  D -> Atira <br>
+  R -> Recarregar <br>
 
-=== Comandos do player azul \n
-  Seta pra cima -> Pra cima \n
-  Seta pra baixo -> Pra baixo \n
-  Seta pra esquerda -> Atira \n
-  Seta pra direita -> Recarrega \n
+=== Comandos do player azul <br>
+  Seta pra cima -> Pra cima <br>
+  Seta pra baixo -> Pra baixo <br>
+  Seta pra esquerda -> Atira <br>
+  Seta pra direita -> Recarrega <br>
   
 </p>
 
