@@ -1,12 +1,18 @@
-const quadrado = 100;
+let heart;
+let amo;
+let amo_fliped;
+let bullet;
+let bullet_fliped;
+let cenario;
+let img_player1;
+let img_player2;
 
 //player 1 variables
-let img;
 let player1 = 
 {
   municao: 3,
-  coluna: 45,
-  linha: 45,
+  coluna: 35,
+  linha: 35,
   bala: [{aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false}],
@@ -18,8 +24,8 @@ let player1 =
 let player2 = 
 {
   municao: 3,
-  coluna: 545,
-  linha: 45,
+  coluna: 535,
+  linha: 35,
   bala: [{aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false},
          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false}],
@@ -29,7 +35,14 @@ let player2 =
 };
 
 function preload(){
-  img = loadImage('heart.jpg');
+  heart = loadImage('heart.jpg');
+  amo = loadImage('amo.jpg');
+  amo_fliped = loadImage('amo_fliped.jpg');
+  bullet = loadImage('bullet.jpg');
+  bullet_fliped = loadImage('bullet_fliped.jpg');
+  cenario = loadImage('ground.jpg');
+  img_player1 = loadImage('player1.jpg');
+  img_player2 = loadImage('player2.jpg');
 }
 
 function setup() {
@@ -38,7 +51,7 @@ function setup() {
 
 function atirar() {
   for(let i = 0; i < 3; i++) {
-    if(player1.bala[i].disparada == true && player1.recarregando == false) {
+    if(player1.bala[i].disparada == true) {
       if((millis() - player1.bala[i].momento).toFixed(0) > 500 * player1.bala[i].aux) {
         player1.bala[i].coluna += 100;
         player1.bala[i].aux++;
@@ -47,7 +60,7 @@ function atirar() {
   }
 
   for(let i = 0; i < 3; i++) {
-    if(player2.bala[i].disparada == true && player2.recarregando == false) {
+    if(player2.bala[i].disparada == true) {
       if((millis() - player2.bala[i].momento).toFixed(0) > 500 * player2.bala[i].aux) {
         player2.bala[i].coluna -= 100;
         player2.bala[i].aux++;
@@ -80,17 +93,17 @@ function checa_acertou_p2() {
 
 function checa_posicao() {
   if(player1.linha < 0) {
-    player1.linha = 245;
+    player1.linha = 235;
   }
   if(player2.linha < 0) {
-    player2.linha = 245;
+    player2.linha = 235;
   }
 
   if(player1.linha > 300) {
-    player1.linha = 45;
+    player1.linha = 35;
   }
   if(player2.linha > 300) {
-    player2.linha = 45;
+    player2.linha = 35;
   }
 }
 
@@ -128,33 +141,33 @@ function draw_balas() {
   fill(255, 204, 0);
   for(let i = 0; i < 3; i++) {
     if(player1.bala[i].disparada == true) {
-      square(player1.bala[i].coluna, player1.bala[i].linha, 5);
+      image(bullet, player1.bala[i].coluna + 23, player1.bala[i].linha + 19, 30, 30);
     } else {
-      square(i * 5, 5, 5);
+      image(amo, i * 20, 10, 30, 30);
     }
   }
 
   for(let i = 0; i < 3; i++) {
     if(player2.bala[i].disparada == true) {
-      square(player2.bala[i].coluna, player2.bala[i].linha, 5);
+      image(bullet_fliped, player2.bala[i].coluna - 13, player2.bala[i].linha - 8, 30, 30);
     } else {
-      square(595 - (i * 5), 5, 5);
+      image(amo_fliped, 575 - (i * 20), 10, 30, 30);
     }
   }
 }
 
 function draw_matriz() {
-  fill(155);
+  fill(255, 248, 220);
   for(let l = 0; l < 6; l++) {
     for(let c = 0; c < 3; c++) {
-      square(l * 100, c * 100, quadrado);
+      image(cenario, l * 100, c * 100, 0);
     }
   }
 }
 
 function draw_p1() {
   fill(000)
-  square(player1.coluna, player1.linha, 10);
+  image(img_player1, player1.coluna, player1.linha, 40, 40);
 }
 
 function draw_p1_vida() {
@@ -164,13 +177,13 @@ function draw_p1_vida() {
     //square(0, 0, 10)
   }
   for(let i = 0; i < player1.vida; i++) {
-    image(img, i * 5, 0, 10, 10) 
+    image(heart, i * 15, 0, 25, 25) 
   }
 }
 
 function draw_p2() {
   fill(000)
-  square(player2.coluna, player2.linha, 10);
+  image(img_player2, player2.coluna, player2.linha, 40, 40);
 }
 
 function draw_p2_vida() {
@@ -180,13 +193,13 @@ function draw_p2_vida() {
     //square(0, 600, 10)
   }
   for(let i = 0; i < player2.vida; i++) {
-    square(img, 595 - (i * 5), 0, 10, 10) 
+    image(heart, (575 - (i * 15)), 0, 25, 25) 
   }
 }
 
 function recarregar() {
   if(player1.recarregando == true) {
-    if((millis() - player1.reload_momento).toFixed(0) > 2000) {
+    if((millis() - player1.reload_momento).toFixed(0) > 4000) {
       for(let i = 0; i < 3; i++) {
         player1.bala[i].disparada = false;
       }
@@ -196,7 +209,7 @@ function recarregar() {
   }
 
   if(player2.recarregando == true) {
-    if((millis() - player2.reload_momento).toFixed(0) > 2000) {
+    if((millis() - player2.reload_momento).toFixed(0) > 4000) {
       for(let i = 0; i < 3; i++) {
         player2.bala[i].disparada = false;
       }
@@ -215,7 +228,7 @@ function keyPressed() {
     player1.linha += 100;
   }
   if(keyCode === 68) {
-    if(player1.municao >= 1) {
+    if(player1.municao >= 1 && player1.recarregando == false) {
       player1.bala[player1.municao - 1].disparada = true;
       player1.bala[player1.municao - 1].coluna = player1.coluna;
       player1.bala[player1.municao - 1].linha = player1.linha;
@@ -239,7 +252,7 @@ function keyPressed() {
     player2.linha += 100;
   }
   if(keyCode === LEFT_ARROW) {
-    if(player2.municao >= 1) {
+    if(player2.municao >= 1 && player2.recarregando == false) {
       player2.bala[player2.municao - 1].disparada = true;
       player2.bala[player2.municao - 1].coluna = player2.coluna;
       player2.bala[player2.municao - 1].linha = player2.linha;
