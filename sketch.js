@@ -164,7 +164,7 @@ function draw_p1_vida() {
     //square(0, 0, 10)
   }
   for(let i = 0; i < player1.vida; i++) {
-    image(img, i * 5, 0, 5, 5) 
+    image(img, i * 5, 0, 10, 10) 
   }
 }
 
