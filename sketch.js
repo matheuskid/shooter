@@ -1,7 +1,9 @@
 const quadrado = 100;
 
 //player 1 variables
-let player1 = {
+let img;
+let player1 = 
+{
   municao: 3,
   coluna: 45,
   linha: 45,
@@ -10,10 +12,11 @@ let player1 = {
          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false}],
   vida: 5,
   recarregando: false,
-  reload_momento: 0};
-                
+  reload_momento: 0
+};                
 //player 2 variables
-let player2 = {
+let player2 = 
+{
   municao: 3,
   coluna: 545,
   linha: 45,
@@ -22,7 +25,12 @@ let player2 = {
          {aux: 1, coluna: 0, linha: 0, momento: 0, disparada: false}],
   vida: 5,
   recarregando: false,
-  reload_momento: 0};
+  reload_momento: 0
+};
+
+function preload(){
+  img = loadImage('heart.jpg');
+}
 
 function setup() {
   createCanvas(600, 300);
@@ -48,23 +56,23 @@ function atirar() {
   }
 }
 
-function checa_acertou_p2() {
-  for(let i = 0; i < 3; i++) {
-    if(player1.bala[i].disparada == true) {
-      if(player1.bala[i].coluna == player2.coluna && player1.bala[i].linha == player2.linha) {
-        player2.vida -= 1;
-        player1.bala[i].aux = 1;
-      }
-    }
-  }
-}
-
 function checa_acertou_p1() {
   for(let i = 0; i < 3; i++) {
     if(player2.bala[i].disparada == true) {
       if(player2.bala[i].coluna == player1.coluna && player2.bala[i].linha == player1.linha) {
         player1.vida -= 1;
         player2.bala[i].aux = 1;
+      }
+    }
+  }
+}
+
+function checa_acertou_p2() {
+  for(let i = 0; i < 3; i++) {
+    if(player1.bala[i].disparada == true) {
+      if(player1.bala[i].coluna == player2.coluna && player1.bala[i].linha == player2.linha) {
+        player2.vida -= 1;
+        player1.bala[i].aux = 1;
       }
     }
   }
@@ -156,7 +164,7 @@ function draw_p1_vida() {
     //square(0, 0, 10)
   }
   for(let i = 0; i < player1.vida; i++) {
-    square(i * 5, 0, 5) 
+    image(img, i * 5, 0, 5, 5) 
   }
 }
 
@@ -178,7 +186,7 @@ function draw_p2_vida() {
 
 function recarregar() {
   if(player1.recarregando == true) {
-    if((millis() - player1.reload_momento).toFixed(0) > 1000) {
+    if((millis() - player1.reload_momento).toFixed(0) > 2000) {
       for(let i = 0; i < 3; i++) {
         player1.bala[i].disparada = false;
       }
@@ -188,7 +196,7 @@ function recarregar() {
   }
 
   if(player2.recarregando == true) {
-    if((millis() - player2.reload_momento).toFixed(0) > 1000) {
+    if((millis() - player2.reload_momento).toFixed(0) > 2000) {
       for(let i = 0; i < 3; i++) {
         player2.bala[i].disparada = false;
       }
