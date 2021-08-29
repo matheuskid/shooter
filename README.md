@@ -8,14 +8,14 @@
 
 -> Baixar a extensão Live Server
 --- Baixe a extensão live server pelo vs code e então clice en "go live" no canto inferior direito da IDE <br>
-  o projeto já deve abrir no navegador
+  o projeto já deve abrir no navegado
 
 ## Como jogar
 === Comandos do player vermelho <br>
   W -> Pra cima <br>
   S -> Pra baixo <br>
   D -> Atira <br>
-  R -> Recarregar <br>
+  A -> Recarregar <br>
 
 === Comandos do player azul <br>
   Seta pra cima -> Pra cima <br>
