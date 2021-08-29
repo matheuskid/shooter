@@ -6,10 +6,18 @@ let bullet_fliped;
 let cenario;
 let img_player1;
 let img_player2;
+let title;
+let menu;
+let win_red;
+let win_blue; 
+let empate; 
+let jogar = false;
 
-//player 1 variables
-let player1 = 
-{
+let player1;
+let player2;
+
+function cria_player(){
+  player1 = {
   municao: 3,
   coluna: 35,
   linha: 35,
@@ -19,11 +27,9 @@ let player1 =
   vida: 5,
   recarregando: false,
   reload_momento: 0
-};
- 
-//player 2 variables
-let player2 = 
-{
+  };
+
+  player2 = {
   municao: 3,
   coluna: 535,
   linha: 35,
@@ -33,17 +39,23 @@ let player2 =
   vida: 5,
   recarregando: false,
   reload_momento: 0
-};
+  };
+}
 
 function preload(){
-  heart = loadImage('heart.jpg');
-  amo = loadImage('amo.jpg');
-  amo_fliped = loadImage('amo_fliped.jpg');
-  bullet = loadImage('bullet.jpg');
-  bullet_fliped = loadImage('bullet_fliped.jpg');
-  cenario = loadImage('ground.jpg');
-  img_player1 = loadImage('player1.jpg');
-  img_player2 = loadImage('player2.jpg');
+  win_blue = loadImage('imagens/azul_ganhou.jpg');
+  win_red = loadImage('imagens/vermelho_ganhou.jpg');
+  empate = loadImage('imagens/empate.jpg');
+  menu = loadImage('imagens/Menu.jpg');
+  title = loadImage('imagens/Shooter.jpg');
+  heart = loadImage('imagens/heart.jpg');
+  amo = loadImage('imagens/amo.jpg');
+  amo_fliped = loadImage('imagens/amo_fliped.jpg');
+  bullet = loadImage('imagens/bullet.jpg');
+  bullet_fliped = loadImage('imagens/bullet_fliped.jpg');
+  cenario = loadImage('imagens/ground.jpg');
+  img_player1 = loadImage('imagens/player1.jpg');
+  img_player2 = loadImage('imagens/player2.jpg');
 }
 
 function setup() {
@@ -120,24 +132,45 @@ function checa_bala() {
   }
 }
 
+
 function draw() {
-  checa_acertou_p1();
-  checa_acertou_p2();
-  checa_bala();
-  checa_posicao();
+  if(jogar) {
+    checa_acertou_p1();
+    checa_acertou_p2();
+    checa_bala();
+    checa_posicao();
 
-  background(220);
-  draw_matriz();
-  draw_p1_vida();
-  draw_p2_vida();
-  draw_p1();
-  draw_p2();
+    background(220);
+    draw_matriz();
+    draw_p1_vida();
+    draw_p2_vida();
+    draw_p1();
+    draw_p2();
 
-  recarregar();
-  draw_balas();
-  atirar();
+    recarregar();
+    draw_balas();
+    atirar();
+  } else {
+    draw_matriz();
+    image(menu, 202, 130, 200, 80);
+    
+    if( player1 == undefined && player2 == undefined){
+      image(title, 199, 50, 200, 80);
+    } else {
+      fim_de_jogo(); 
+    }
+  }
 }
 
+function fim_de_jogo(){
+  if(player1.vida == 0 && player2.vida > 0) {
+    image(win_blue, 180, 40, 250, 80);
+  } else if(player2.vida == 0 && player1.vida > 0) {
+    image(win_red, 150, 40, 300, 80);
+  } else if(player1.vida == 0 && player2.vida == 0) {
+    image(empate, 150, 40, 300, 80); 
+  }  
+}
 function draw_balas() {
   fill(255, 204, 0);
   for(let i = 0; i < 3; i++) {
@@ -174,8 +207,7 @@ function draw_p1() {
 function draw_p1_vida() {
   fill(255, 0, 0);
   if(player1.vida == 0) {
-    fill(000)
-    //square(0, 0, 10)
+    jogar = false;
   }
   for(let i = 0; i < player1.vida; i++) {
     image(heart, i * 15, 0, 25, 25) 
@@ -190,8 +222,7 @@ function draw_p2() {
 function draw_p2_vida() {
   fill(255, 0, 0);
   if(player2.vida == 0) {
-    fill(000)
-    //square(0, 600, 10)
+    jogar = false; 
   }
   for(let i = 0; i < player2.vida; i++) {
     image(heart, (575 - (i * 15)), 0, 25, 25) 
@@ -221,6 +252,16 @@ function recarregar() {
 }
 
 function keyPressed() {
+  
+  if(keyCode === 13){
+    jogar = true;
+    cria_player();
+  }
+
+  if(jogar == false && keyCode === 27){
+    window.close();
+  }
+
   // player 1 comands
   if(keyCode === 87) {
     player1.linha -= 100;
@@ -238,7 +279,7 @@ function keyPressed() {
     }
   }
 
-  if(keyCode === 82) {
+  if(keyCode === 65) {
     if(player1.recarregando == false) {
       player1.recarregando = true;
       player1.reload_momento = millis();

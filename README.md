@@ -1,5 +1,5 @@
 ### shooter
-<----- word in progress ----->
+<----- work in progress ----->
 ## Instalar
 <p> 
 -> Baixe os arquivos (por git, zipado, etc)
@@ -15,7 +15,7 @@
   W -> Pra cima <br>
   S -> Pra baixo <br>
   D -> Atira <br>
-  R -> Recarregar <br>
+  A -> Recarregar <br>
 
 === Comandos do player azul <br>
   Seta pra cima -> Pra cima <br>
