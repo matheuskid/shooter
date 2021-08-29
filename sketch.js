@@ -19,7 +19,8 @@ let player1 =
   vida: 5,
   recarregando: false,
   reload_momento: 0
-};                
+};
+ 
 //player 2 variables
 let player2 = 
 {
