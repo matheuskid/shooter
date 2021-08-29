@@ -1,5 +1,5 @@
 ### shooter
-<----- word in progress ----->
+<----- work in progress ----->
 ## Instalar
 <p> 
 -> Baixe os arquivos (por git, zipado, etc)
