@@ -54,6 +54,8 @@
     </td>
     <td align="center"><a href="https://github.com/Gabriel-Alves-Pessoa"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/75688409?v=4" width="100px;" alt=""/><br /><sub><b>Gabriel Alves</b></sub></a><br/>
     </td>
+  </tr>
+</table>
 
 
  
