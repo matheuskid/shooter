@@ -197,7 +197,7 @@ function preload(){
   win_blue = loadImage('imagens/azul_ganhou.jpg');
   win_red = loadImage('imagens/vermelho_ganhou.jpg');
   empate = loadImage('imagens/empate.jpg');
-  menu = loadImage('imagens/Menu.jpg');
+  img_menu = loadImage('imagens/Menu.jpg');
   title = loadImage('imagens/Shooter.jpg');
   heart = loadImage('imagens/heart.jpg');
   amo = loadImage('imagens/amo.jpg');
