@@ -8,7 +8,7 @@ let heart;
 let img_player1;
 let img_player2;
 let jogar = false;
-let menu;
+let img_menu;
 let player1;
 let player2;
 let title;
@@ -57,6 +57,18 @@ function checa_acertou() {
   }
 }
 
+function checa_bala() {
+  for(let i = 0; i < 3; i++) {
+    if(player1.bala[i].coluna > 545) {
+      player1.bala[i].aux = 1;
+    }
+  
+    if(player2.bala[i].coluna < 45) {
+      player2.bala[i].aux = 1;
+    }
+  }
+}
+
 function checa_posicao() {
   if(player1.linha < 0) {
     player1.linha = 235;
@@ -70,18 +82,6 @@ function checa_posicao() {
   }
   if(player2.linha > 300) {
     player2.linha = 35;
-  }
-}
-
-function checa_bala() {
-  for(let i = 0; i < 3; i++) {
-    if(player1.bala[i].coluna > 545) {
-      player1.bala[i].aux = 1;
-    }
-  
-    if(player2.bala[i].coluna < 45) {
-      player2.bala[i].aux = 1;
-    }
   }
 }
 
@@ -127,14 +127,7 @@ function draw() {
     atirar();
 
   } else {
-    draw_matriz();
-    image(menu, 202, 130, 200, 80);
-
-    if(player1 == undefined && player2 == undefined) {
-      image(title, 199, 50, 200, 80);
-    } else {
-      fim_de_jogo(); 
-    }
+    menu();
   }
 }
 
@@ -184,14 +177,20 @@ function draw_vidas() {
   }
 }
 
-function fim_de_jogo(){
-  if(player1.vida == 0 && player2.vida > 0) {
-    image(win_blue, 180, 40, 250, 80);
-  } else if(player2.vida == 0 && player1.vida > 0) {
-    image(win_red, 150, 40, 300, 80);
-  } else if(player1.vida == 0 && player2.vida == 0) {
-    image(empate, 150, 40, 300, 80); 
-  }  
+function menu() {
+  draw_matriz();
+  image(img_menu, 202, 130, 200, 80);
+  if(player1 == undefined && player2 == undefined) {
+    image(title, 199, 50, 200, 80);
+  } else {
+    if(player1.vida == 0 && player2.vida > 0) {
+      image(win_blue, 180, 40, 250, 80);
+    } else if(player2.vida == 0 && player1.vida > 0) {
+      image(win_red, 150, 40, 300, 80);
+    } else if(player1.vida == 0 && player2.vida == 0) {
+      image(empate, 150, 40, 300, 80); 
+    }
+  }
 }
 
 function preload(){
@@ -212,6 +211,7 @@ function preload(){
 
 function recarregar() {
   if(player1.recarregando == true) {
+    text("R", 65, 20, 10);
     if((millis() - player1.reload_momento).toFixed(0) > 4000) {
       for(let i = 0; i < 3; i++) {
         player1.bala[i].disparada = false;
@@ -222,6 +222,7 @@ function recarregar() {
   }
 
   if(player2.recarregando == true) {
+    text("R", 530, 20, 10);
     if((millis() - player2.reload_momento).toFixed(0) > 4000) {
       for(let i = 0; i < 3; i++) {
         player2.bala[i].disparada = false;
@@ -261,7 +262,7 @@ function keyPressed() {
   }
 
   if(keyCode === 65) {
-    if(player1.recarregando == false) {
+    if(player1.recarregando == false && player1.municao < 3) {
       player1.recarregando = true;
       player1.reload_momento = millis();
     }
@@ -285,7 +286,7 @@ function keyPressed() {
   }
 
   if(keyCode === RIGHT_ARROW) {
-    if(player2.recarregando == false) {
+    if(player2.recarregando == false && player2.municao < 3) {
       player2.recarregando = true;
       player2.reload_momento = millis();
     }
