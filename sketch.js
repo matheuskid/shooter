@@ -137,7 +137,7 @@ function draw_balas() {
     if(player1.bala[i].disparada == true) {
       image(bullet, player1.bala[i].coluna + 23, player1.bala[i].linha + 19, 30, 30);
     } else {
-      image(amo, i * 20, 10, 30, 30);
+      image(amo, i * 19, 10, 30, 30);
     }
   }
 
@@ -145,7 +145,7 @@ function draw_balas() {
     if(player2.bala[i].disparada == true) {
       image(bullet_fliped, player2.bala[i].coluna - 13, player2.bala[i].linha - 8, 30, 30);
     } else {
-      image(amo_fliped, 575 - (i * 20), 10, 30, 30);
+      image(amo_fliped, 571 - (i * 20), 11, 30, 30);
     }
   }
 }
@@ -211,7 +211,7 @@ function preload(){
 
 function recarregar() {
   if(player1.recarregando == true) {
-    text("R", 65, 20, 10);
+    text("R", 69, 20, 10);
     if((millis() - player1.reload_momento).toFixed(0) > 4000) {
       for(let i = 0; i < 3; i++) {
         player1.bala[i].disparada = false;
@@ -222,7 +222,7 @@ function recarregar() {
   }
 
   if(player2.recarregando == true) {
-    text("R", 530, 20, 10);
+    text("R", 523, 20, 10);
     if((millis() - player2.reload_momento).toFixed(0) > 4000) {
       for(let i = 0; i < 3; i++) {
         player2.bala[i].disparada = false;
