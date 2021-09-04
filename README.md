@@ -30,14 +30,14 @@
 <p align="justify"> ->> Baixe a extensão live server pelo vs code e então clice en "Go Live" no canto inferior direito da IDE. O projeto já deve abrir no navegador </p>
 
 ## 🏃 Como-jogar
-=== Comandos do player vermelho <br>
+=== Comandos do player vermelho ===<br>
 
   W -> Pra cima <br>
   S -> Pra baixo <br>
   D -> Atira <br>
   A -> Recarregar <br>
 
-=== Comandos do player azul <br>
+=== Comandos do player azul ===<br>
 
   Seta pra cima -> Pra cima <br>
   Seta pra baixo -> Pra baixo <br>
